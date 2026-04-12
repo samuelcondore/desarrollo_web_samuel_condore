@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .boton {
+            background-color: #7dc2d1;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            border-radius: 4px;
+            margin: 15px;
+            text-decoration: none;
+            font-weight: bolder;
+            font-size: large;
+        }
+        .boton:hover {
+            background-color: #498d9c;
+        }
+        form {
+            background-color: rgb(231, 231, 231);
+            border-radius: 4px;
+            padding: 32px;
+            text-align: left;
+        }
+        input[type=text], input[type=datetime-local], input[type=url], select {
+            width: 50%;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+        }
+        label {
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Registro</h1>
+    <form onsubmit="checkrequired()">
+        <h3>Datos Personales</h3>
+        <label for="rut">RUT* (sin puntos con guion):</label>
+        <input type="text" title="Formato no reconocido" pattern="[1-9]\d*-(\d|k|K)" id="rut" name="rut" placeholder="12345678-k">
+
+        <label for="rol">Rol*:</label>
+        <select id="rol" name="rol">
+            <option value="">(none)</option>
+            <option value="pregrado">Pregrado</option>
+            <option value="postgrado">Postgrado</option>
+            <option value="funcionario">Funcionario/a</option>
+            <option value="academico">Académico/a</option>
+        </select>
+
+        <label for="telefono">Teléfono de contacto:</label>
+        +56 9 <input type="text" title="Formato no reconocido" pattern="(\s*\d\s*){8}" id="telefono" name="telefono" placeholder="1234 5678">
+
+        <label for="email">Email*:</label>
+        <input type="text" title="Formato no reconocido" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" id="email" name="email">
+        
+        <h3>Información de la actividad</h3>
+        <label for="categoria">Categoría*:</label>
+        <select id="categoria" name="categoria">
+            <option value="">(none)</option>
+            <option value="artistica">Artística</option>
+            <option value="deportiva">Deportiva</option>
+            <option value="tecnologica">Tecnológica</option>
+            <option value="social">Social</option>
+            <option value="general">Recreativa/General</option>
+        </select>
+
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" name="descripcion">
+
+        <label for="fechai">Fecha y hora inicio:</label>
+        <input type="datetime-local" id="fechai" name="fechai">
+        <label for="fechaf">Fecha y hora final:</label>
+        <input type="datetime-local" id="fechaf" name="fechaf">
+
+        <label for="archivo">Foto o video*:</label><br>
+        <input type="file" id="archivo" name="archivo"><br><br>
+
+        <label for="linkact">Link a actividad*:</label>
+        <input type="url" id="linkact" name="linkact">
+        
+
+        <br><input type="submit" class="boton" value="Registrar">
+        <a href="index.html" class="boton">Volver</a>
+
+        <footer>Campos con * son obligatorios</footer>
+    </form>
+    <script>
+        function checkrequired() {
+            let rut = document.getElementById('rut').value;
+            let email = document.getElementById('email').value;
+            let rol = document.getElementById('rol').value;
+            let categoria = document.getElementById('categoria').value;
+            let archivo = document.getElementById('archivo').value;
+            let linkact = document.getElementById('linkact').value;
+
+            if ((rut=="") || (email=="") || (rol=="") || (categoria=="") || (archivo=="") || (linkact=="")) {
+                window.alert("Llene todos los datos requeridos primero.");
+            } else {window.alert("Datos registrados.");} /*Aquí supongo que iría la inserción de datos en la base de datos*/
+        }
+    </script>
+</body>
+</html>

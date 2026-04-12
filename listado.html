@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        input[type=text] {
+            width: 50%;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .botón {
+            background-color: #7dc2d1;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            border-radius: 4px;
+            margin: 30px;
+            text-decoration: none;
+            font-weight: bolder;
+            font-size: large;
+        }
+        .botón:hover, .cambiaPagina:hover {
+            background-color: #498d9c;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 10px;
+            border: 1px solid lightgray;
+        }
+        th {
+            font-weight: bold;
+            background-color: #7dc2d1;
+            padding: 15px 5px;
+        }
+        th.ordenable:hover {
+            background-color: #498d9c;
+        }
+        tr:nth-child(even){
+            background-color: rgb(226, 226, 226);
+        }
+        tr:nth-child(odd){
+            background-color: white;
+        }
+        tr:hover {
+            background-color: rgb(212, 212, 212);
+        }
+        .subdiv {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: auto;
+            width: auto;
+        }
+        .cambiaPagina {
+            border-radius: 4px;
+            color: white;
+            font-weight: bolder;
+            font-size: large;
+            background-color: #7dc2d1;
+            border: none;
+            padding: 5px 15px;
+        }
+    </style>
+
+</head>
+<body onload="constructTable(); sortTable(5)">
+    <h1>Listado de registros</h1>
+    <div>
+        <input type="text" id="search" placeholder="Busca por nombre o apellido...">
+        <input type="button" class="cambiaPagina" value="buscar" onclick="filterTable()">
+        <input type="button" class="cambiaPagina" value="limpiar" onclick="clearFilter()">
+        <table id="miTabla">
+            <tr>
+                <th></th>
+                <th class="ordenable" onclick="sortTable(0)">Nombre ↑↓</th>
+                <th class="ordenable" onclick="sortTable(1)">Apellido ↑↓</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th class="ordenable" onclick="sortTable(4)">Tipo de actividad ↑↓</th>
+                <th class="ordenable" onclick="sortTable(5)">Fecha ↑↓</th>
+            </tr>
+        </table>
+        <div class="subdiv">
+            <button type="button" class="cambiaPagina" onclick="constructTable(-1)">&lt;</button>
+            <!--<input type="text" id="ipp" pattern="\d*" class="cambiaPagina" onkeyup="updateIPP()">-->
+            <button type="button" class="cambiaPagina" onclick="constructTable(1)">></button>
+        </div>
+    </div>
+    <br><br><br><br>
+    <a href="index.html" class="botón">Volver</a>
+
+    <script>
+        /* arreglo con los datos */
+        const TableData = [["Thatch","Balasin","tbalasin0@google.it","Funcionario/a","Artística","2025-05-20"],
+["Gasper","Saundercock","gsaundercock1@salon.com","Pregrado","Artística","2025-10-13"],
+["Kirby","Longhurst","klonghurst2@quantcast.com","Funcionario/a","Recreativa/General","2026-02-06"],
+["Donnamarie","Newberry","dnewberry3@skyrock.com","Postgrado","Recreativa/General","2026-02-28"],
+["Chrissie","Hobson","chobson4@cisco.com","Funcionario/a","Artística","2025-06-27"],
+["Hestia","Kavanagh","hkavanagh5@technorati.com","Funcionario/a","Tecnológica","2025-07-27"],
+["Graeme","Chauvey","gchauvey6@geocities.com","Pregrado","Social","2025-10-01"],
+["Foster","Kershow","fkershow7@home.pl","Postgrado","Tecnológica","2025-05-03"],
+["Ronda","Stafford","rstafford8@dmoz.org","Pregrado","Deportiva","2026-01-13"],
+["Ardelia","Bennet","abennet9@cnn.com","Académico/a","Social","2026-04-10"]];
+
+        let itemsPerPage = 5;
+        /*function updateIPP() {
+            itemsPerPage = parseInt(document.getElementById("ipp").value);
+            constructTable();
+        }*/
+        var currentPage = 1;
+        var currentSortingSign = "decreciente";
+        var currentSortingColumn = 5; /*La tabla carga ordenada decreciente respecto a la fecha (columna 6)*/
+        let totalPages = Math.ceil(TableData.length/itemsPerPage);
+        function resetTable() {
+            var tabla = document.getElementById("miTabla");
+            while (tabla.rows.length > 1) {
+                tabla.deleteRow(1);
+            }
+        }
+        function constructTable(sentido = 0, array=TableData) { /* Función que dibuja la tabla */
+            if (currentPage+sentido<=totalPages && currentPage+sentido>=1) { /* chequear primero que el cambio de página es válido */
+                currentPage = currentPage+sentido;
+                resetTable(); /* deja solo los headers */
+                for (i=1; (i<=itemsPerPage)&&(i-1+(currentPage-1)*itemsPerPage)<array.length; i++) { /* Se van creando las filas una a una, hasta llenar los items por fila definidos*/
+                    var tabla = document.getElementById("miTabla");
+                    var row = tabla.insertRow(i);
+                    row.insertCell(0).innerHTML = (i+(currentPage-1)*itemsPerPage); /* insertar el índice */
+                    for (j=0; j<=5; j++) { /* Aquí se llenan los datos en la fila i sacandolos del arreglo TableData */
+                        var cell = row.insertCell(j+1);
+                        cell.innerHTML = array[i-1+(currentPage-1)*itemsPerPage][j];
+                    }
+                }   
+            }
+        }
+        function sortTable(c) {
+            if (c != currentSortingColumn) { /* en caso de que se quiera ordenar respecto a otra columna de la actual (por defecto la fecha) */
+                currentSortingSign = "creciente";
+            }
+
+            if (currentSortingSign == "decreciente") { /* si el orden actual es decreciente, ordenarla por creciente */
+                resetTable();
+                TableData.sort((a,b) => a[c].localeCompare(b[c])); /* ordenar los strings de la columna c */
+                constructTable();
+                currentSortingSign = "creciente";
+            } else { /* si el orden actual es creciente (...) */
+                resetTable();
+                TableData.sort((a,b) => b[c].localeCompare(a[c]));
+                constructTable();
+                currentSortingSign = "decreciente";
+            }
+            currentSortingColumn = c; /* actualizar que está ordenada por la columna clickeada */
+        }
+        function filterTable() {
+            function filtro(row) { /* filtro nombre o apellido */
+                return (row[0].toLowerCase()==input||row[1].toLowerCase()==input);
+            }
+            var input = document.getElementById("search").value.toLowerCase();
+            const tablaFiltrada = TableData.filter(filtro);
+            currentPage = 1;
+            totalPages = Math.ceil(tablaFiltrada.length/itemsPerPage);
+            if (tablaFiltrada.length > 0) {
+                constructTable(0, tablaFiltrada);
+            } else {
+                resetTable();
+            }
+        }
+        function clearFilter() {
+            currentPage = 1;
+            totalPages = Math.ceil(TableData.length/itemsPerPage);
+            constructTable();
+        }
+    </script>
+</body>
+</html>
