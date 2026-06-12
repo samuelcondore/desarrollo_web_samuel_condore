@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %} Actividad {% endblock %}
+{% block css %}<link rel="stylesheet" href="static/css/comments.css">{% endblock %}
+
+{% block content %}
+
+<div>
+<h1 style="text-align: center;">Datos de actividad</h1>
+<table style="top: 0;">
+    <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Día</th>
+        <th>Hora inicio</th>
+        <th>Duración</th>
+        <th>Descripción</th>
+        <th>Foto</th>
+    </tr>
+    <tr>
+        <td>{{ act.nombre }}</td>
+        <td>{{ act.categoria }}</td>
+        <td>{{ act.dia }}</td>
+        <td>{{ act.horai }}</td>
+        <td>{{ act.duracion }}</td>
+        <td>{{ act.desc }}</td>
+        <td><a href="{{ act.foto_path }}" target="_blank">Abrir foto</a></td>
+    </tr>
+</table>
+</div>
+<div class="comments">
+<h2> Comentarios </h2>
+<div class="add_comment">
+    <form id="comment_form">
+        <label>Añadir comentario:</label><br>
+        <input type="text" id="commenter_name" name="commenter_name" placeholder="Nombre" value="{{session['nombre']}}" required>
+        <textarea rows="4" cols="50" class="comment_box" title="Debe tener entre 5 y 300 carácteres" id="content" name="content" required>{{session['texto']}}</textarea>
+        <button type="submit" class="submit_comment">Publicar comentario</button>
+    </form>
+</div>
+
+{% for c in comments %}
+<div class="comment">
+    <div class="commenter">{{c.nombre}}</div><div class="comment_date">{{c.fecha}}</div>
+    <div class="comment_text">{{c.texto}}</div>
+</div>
+{% endfor %}
+</div>
+
+<br>
+{% if has_prev %}
+    <a class="paginator" href="{{ url_for('actividad', page = curr_page - 1, id = act.id) }}">previa</a>
+{% endif %}
+{% if has_next %}
+    <a class="paginator" href="{{ url_for('actividad', page = curr_page + 1, id = act.id) }}">siguiente</a>
+{% endif %}
+
+{% endblock %}
+{% block javascript %}<script src="static/js/comentario.js"></script>{% endblock %}

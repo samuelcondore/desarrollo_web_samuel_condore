@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} Portada {% endblock %}
+{% block css %}
+{% endblock %}
+
+{% block content %}
+    <h1>Mensaje de bienvenida</h1>
+    {% if data %}
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Fecha de registro</th>
+            <th>Comuna</th>
+        </tr>
+        {% for miembro in data %}
+        <tr>
+            <td>{{ miembro.nombre }}</td>
+            <td>{{ miembro.email }}</td>
+            <td>{{ miembro.telefono }}</td>
+            <td>{{ miembro.fecha_registro }}</td>
+            <td>{{ miembro.comuna }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p style="color: red;">No se encontraron miembros</p>
+    {% endif %}
+    <!--
+    <form method="POST" style="position: fixed; bottom: 0; left: 0;">
+        <p>botones super-secretos</p>
+        <input type="submit" name="test" value="add">
+        <input type="submit" name="test" value="delete">
+        <p>añadir miembro y eliminar todo miembro</p>
+    </form>
+    -->
+{% endblock %}
+{% block javascript %}
+<!--  <script lang="javascript" src="{{ url_for('static', filename='js/portada.js') }}"></script>  -->
+{% endblock %}

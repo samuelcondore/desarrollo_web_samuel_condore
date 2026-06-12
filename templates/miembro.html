@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %} Miembro {% endblock %}
+{% block css %}{% endblock %}
+
+{% block content %}
+<h1 style="text-align: left;">Información de miembro y sus actividades</h1>
+
+<div>
+<h2 style="text-align: center;">Datos del miembro</h2>
+<table style="top: 0;">
+    <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Fecha de registro</th>
+        <th>Comuna</th>
+    </tr>
+    <tr>
+        <td>{{ miembro.nombre }}</td>
+        <td>{{ miembro.email }}</td>
+        <td>{{ miembro.telefono }}</td>
+        <td>{{ miembro.fecha_registro }}</td>
+        <td>{{ miembro.comuna }}</td>
+    </tr>
+</table>
+</div>
+
+<div>
+<h2 style="text-align: center;">Datos de actividades</h2>
+<table style="top: 0;">
+    <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Día</th>
+        <th>Hora inicio</th>
+        <th>Duración</th>
+        <th>Descripción</th>
+        <th>Foto</th>
+    </tr>
+    {% for act in data_act %}
+    <tr id="{{  loop.index  }}" data-id="{{  act.id  }}">
+        <td>{{ act.nombre_act }}</td>
+        <td>{{ act.categoria }}</td>
+        <td>{{ act.dia }}</td>
+        <td>{{ act.horai }}</td>
+        <td>{{ act.duracion }}</td>
+        <td>{{ act.desc }}</td>
+        <td><a href="{{ act.foto_path }}" target="_blank">Abrir foto</a></td>
+    </tr>
+    {% endfor %} 
+</table>
+</div>
+
+<br><br><br><br>
+<div>
+{% if has_prev %}
+    <a class="paginator" href="{{ url_for('miembro', page = curr_page - 1) }}">previa</a>
+{% endif %}
+{% if has_next %}
+    <a class="paginator" href="{{ url_for('miembro', page = curr_page + 1) }}">siguiente</a>
+{% endif %}
+</div>
+
+{% endblock %}
+{% block javascript %}<script src="static/js/miembro.js"></script>{% endblock %}

@@ -1,0 +1,130 @@
+:root {
+    --background-color: #F2EAE0;
+    --primary-color: #B4D3D9;
+    --alt-primary-color: #75abb6;
+    --secondary-color: #BDA6CE;
+    --alt-secondary-color: #9B8EC7;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: "Roboto", sans-serif;
+    margin: 0px;
+}
+
+main {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.navbar {
+    background-color: var(--primary-color);
+    display: flex;
+    flex-flow: row wrap;
+    justify-items: flex-start;
+}
+
+.navbar a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 15px;
+}
+
+.navbar a:hover {
+    background-color: var(--alt-primary-color);
+}
+
+table {
+    width: 50%;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+    position: relative;
+    top: 50px;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:nth-child(odd) {
+    background-color: white;
+}
+tr:hover {
+    background-color: #ddd;
+}
+
+th {
+    background-color: var(--secondary-color);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: rgb(88, 88, 88);
+}
+
+.boton {
+    background-color: var(--secondary-color);
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 15px;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: large;
+}
+.boton:hover {
+    background-color: var(--alt-secondary-color);
+}
+
+ul.flashes {
+    background-color: var(--alt-primary-color);
+    border: none;
+    text-align: center;
+    padding: 8px;
+    border-radius: 50px;
+
+}
+
+#register_form {
+    background-color: #f2f2f2;
+    text-align: left;
+    border:#ddd;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 20px;
+}
+
+div.stats {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.paginator {
+    padding: 5px;
+    color: black;
+    margin: auto;
+    background-color: var(--primary-color);
+    border: none;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: large;
+}
+.paginator:hover {
+    background-color: var(--alt-primary-color);
+}
+

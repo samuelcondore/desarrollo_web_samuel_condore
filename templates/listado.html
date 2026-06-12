@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Listado{% endblock %}
+{% block css %}{% endblock %}
+
+{% block content %}
+
+{% if data %}
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Nombre Actividad</th>
+            <th>Día</th>
+            <th>Hora inicio</th>
+        </tr>
+        {% for act in data %}
+        <tr id="{{  loop.index  }}" data-id="{{  act.id_miembro  }}">
+            <td>{{ act.nombre_miembro }}</td>
+            <td>{{ act.email }}</td>
+            <td>{{ act.nombre_act }}</td>
+            <td>{{ act.dia }}</td>
+            <td>{{ act.horai }}</td>
+        </tr>
+        {% endfor %} 
+    </table>
+    <br><br><br><br>
+    {% if has_prev %}
+        <a class="paginator" href="{{ url_for('listado', page = curr_page - 1) }}">previa</a>
+    {% endif %}
+    {% if has_next %}
+        <a class="paginator" href="{{ url_for('listado', page = curr_page + 1) }}">siguiente</a>
+    {% endif %}
+{% else %}
+    <p style="color: red;">No se encontraron actividades</p>
+{% endif %}
+
+{% endblock %}
+{% block javascript %}<script src="static/js/listado.js"></script>{% endblock %}
