@@ -1,0 +1,23 @@
+<head th:fragment="head_base">
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+</head>
+
+<nav class="navbar" th:fragment="navbar">
+    <a th:href="@{/}">Portada</a>
+    <a th:href="@{/registro}">Registro</a>
+    <a th:href="@{/listado}">Listado</a>
+    <a th:href="@{/estadisticas}">Estadísticas</a>
+    <a th:href="@{/buscador}">Buscador</a>
+</nav>
+
+<div th:fragment="flash_messages">
+    <div id="flashmsg">
+        <ul th:if="${messages != null and !messages.isEmpty()}" class="flashes">
+            <li th:each="msg : ${messages}" th:text="${msg}">flash message</li>
+        </ul>
+    </div>
+</div>
+
+<script th:fragment="script_base" th:src="@{/js/base.js}"></script>
+

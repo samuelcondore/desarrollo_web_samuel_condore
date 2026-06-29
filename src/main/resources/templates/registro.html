@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{base :: head_base}"></th:block>
+    <title> Registro </title>
+</head>
+
+<body>
+    <div th:replace="~{base :: navbar}"></div>
+    <div th:replace="~{base :: flash_messages}"></div>
+    <h1>Registro</h1>
+        <form id="register_form" method="post" enctype="multipart/form-data" th:action="@{/registro}">
+            <h2>Datos Personales</h2>
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" title="Introduzca un nombre real" pattern="^[a-zA-Z]+$" id="nombre" name="nombre"><br><br>
+
+            <label for="telefono">Teléfono de contacto:</label><br>
+            +56 9 <input type="text" title="Formato no reconocido" pattern="^(\s*\d\s*){8}$" id="telefono" name="telefono" placeholder="1234 5678"><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="text" title="Formato no reconocido" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" id="email" name="email"><br><br>
+
+            <label for="comuna">Comuna:</label><br>
+            <select id="comuna" name="comuna">
+                <option value="">Elige tu comuna</option>
+                <option th:each="comuna : ${comunas}" th:value="${comuna.id}" th:text="${comuna.nombre}">nombre</option>
+            </select><br><br>
+
+            <h2>Información de la actividad</h2>
+            <label for="nombre_act">Nombre de la actividad:</label><br>
+            <input type="text" title="Máximo 45 carácteres" pattern="^.{1,44}$" id="nombre_act" name="nombre_act"><br><br>
+
+            <label for="categoria">Categoría:</label><br>
+            <select id="categoria" name="categoria">
+                <option value="">Elige categoría</option>
+                <option value="arte">Artística</option>
+                <option value="deporte">Deportiva</option>
+                <option value="tecnología">Tecnológica</option>
+                <option value="social">Social</option>
+                <option value="recreación">Recreativa</option>
+                <option value="otra">Otra</option>
+            </select><br><br>
+
+            <label for="dia">Día:</label><br>
+            <select id="dia" name="dia">
+                <option value="">Elige día de la semana</option>
+                <option value="lunes">Lunes</option>
+                <option value="martes">Martes</option>
+                <option value="miércoles">Miércoles</option>
+                <option value="jueves">Jueves</option>
+                <option value="viernes">Viernes</option>
+                <option value="sábado">Sábado</option>
+                <option value="domingo">Domingo</option>
+            </select><br><br>
+
+            <label for="horai">Hora inicio:</label><br>
+            <input type="time" id="horai" name="horai"><br><br>
+
+            <label>Duración:</label><br>
+            <input type="number" id="horas" name="horas" min="0" max="99" placeholder="horas">:
+            <input type="number" id="minutos" name="minutos" min="0" max="59" placeholder="minutos"><br><br>
+
+            <label for="desc">Descripción (opcional):</label><br>
+            <input type="text" title="Máximo 500 carácteres" pattern="^.{0,499}$" id="desc" name="desc" placeholder="descripción"><br><br>
+
+            <label for="foto">Foto:</label><br>
+            <input type="file" id="foto" name="foto"><br><br>
+
+            <br><input type="submit" class="boton" value="Registrar">
+
+        </form>
+    <script lang="javascript" th:src="@{/js/registro.js}"></script>
+    <script th:replace="~{base :: script_base}"></script>
+</body>
+</html>

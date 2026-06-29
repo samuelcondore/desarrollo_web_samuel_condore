@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{base :: head_base}"></th:block>
+    <title> Buscador </title>
+    <link rel="stylesheet" th:href="@{css/buscador.css}">
+</head>
+<body>
+<div th:replace="~{base :: navbar}"></div>
+<div th:replace="~{base :: flash_messages}"></div>
+
+
+<div class="buscador">
+
+    <input class="searchbar" type="text" id="searchbar" name="searchbar" placeholder="Buscar por nombre, descripción o comuna...">
+    <form id="form-notas">
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre miembro</th>
+                <th>Nombre actividad</th>
+                <th>Categoría</th>
+                <th>Comuna</th>
+                <th>Día</th>
+                <th>Descripción</th>
+                <th>Nota</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="search_results">
+            <tr>
+                <td colspan="8" >No hay resultados</td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+
+<script th:src="@{/js/buscador.js}"></script>
+<script th:replace="~{base :: script_base}"></script>
+</body>
+</html>

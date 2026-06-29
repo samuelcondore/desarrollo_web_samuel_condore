@@ -1,0 +1,23 @@
+:root {
+    --background-color: #F2EAE0;
+    --primary-color: #B4D3D9;
+    --alt-primary-color: #75abb6;
+    --secondary-color: #BDA6CE;
+    --alt-secondary-color: #9B8EC7;
+}
+
+.buscador {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 16px;
+    margin: 32px;
+}
+
+.searchbar {
+    width: 50%;
+    align-self: center;
+    padding: 8px;
+    border-radius: 4px;
+}
+

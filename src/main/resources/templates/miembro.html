@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{base :: head_base}"></th:block>
+    <title> Miembro </title>
+</head>
+<body>
+<div th:replace="~{base :: navbar}"></div>
+<div th:replace="~{base :: flash_messages}"></div>
+<h1 style="text-align: left;">Información de miembro y sus actividades</h1>
+<div>
+<h2 style="text-align: center;">Datos del miembro</h2>
+<table style="top: 0;">
+    <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Fecha de registro</th>
+        <th>Comuna</th>
+    </tr>
+    <tr>
+        <td th:text="${miembro.nombre}">nombre</td>
+        <td th:text="${miembro.email}">email</td>
+        <td th:text="${miembro.telefono}">telefono </td>
+        <td th:text="${miembro.fecha_registro}">fecha_registro</td>
+        <td th:text="${miembro.comuna.nombre}">comuna</td>
+    </tr>
+</table>
+</div>
+
+<div>
+<h2 style="text-align: center;">Datos de actividades</h2>
+<table style="top: 0;">
+    <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Día</th>
+        <th>Hora inicio</th>
+        <th>Duración</th>
+        <th>Descripción</th>
+        <th>Foto</th>
+    </tr>
+    <tr th:each="act : ${data_act_foto}" th:id="${actStat.count}" th:attr="data-id=${act.actividad().id}">
+        <td th:text="${act.actividad().nombre}">nombre_act</td>
+        <td th:text="${act.actividad().tipo}">categoria</td>
+        <td th:text="${act.actividad().dia}">dia</td>
+        <td th:text="${act.actividad().hora_inicio}">horai</td>
+        <td th:text="${act.actividad().duracion}">duracion</td>
+        <td th:text="${act.actividad().descripcion}">desc</td>
+        <td><a th:href="@{${act.foto().getRuta_archivo()}}" target="_blank">Abrir foto</a></td>
+    </tr>
+</table>
+</div>
+
+<br><br><br><br>
+<div>
+    <a th:if="${has_prev}" class="paginator" th:href="@{/listado(page=${curr_page - 1})}">previa</a>
+    <a th:if="${has_next}" class="paginator" th:href="@{/listado(page=${curr_page + 1})}">siguiente</a>
+</div>
+<script th:src="@{/js/miembro.js}"></script>
+<script th:replace="~{base :: script_base}"></script>
+</body>
+</html>
