@@ -5,6 +5,6 @@ Principales fuentes usadas:
   - highcharts.com (highcharts api)
   - developer.mozilla.org (js)
   - medium.com (js, html, spring boot, java)
-  - https://www.freecodecamp.org/ (java)
+  - freecodecamp.org/ (java)
   - stackoverflow.com + reddit.com (preguntas varias y debugging)
-  - https://www.thymeleaf.org/ (thymeleaf)
+  - thymeleaf.org/ (thymeleaf)
